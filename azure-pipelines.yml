@@ -11,7 +11,7 @@ variables:
   azureSubscription: '45c08685-0d37-4639-8ee7-db790cc8480c'
 
   # Function app name
-  functionAppName: ''
+  functionAppName: 'SE3910ProjectApi'
 
   # Agent VM image name
   vmImageName: 'vs2017-win2016'
