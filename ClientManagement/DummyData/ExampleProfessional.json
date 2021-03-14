@@ -1,0 +1,55 @@
+﻿{
+  "uid": "123467890",
+  "shareableCode": "ABC123",
+  "profession": "Tesla CEO",
+  "account": {
+    "firstName": "Elon",
+    "lastName": "Musk",
+    "emailAddress": "elon.musk@telsa.com"
+  },
+  "address": {
+    "streetNumber": 3500,
+    "streetName": "Deer Creek Road",
+    "city": "Palo Alto",
+    "state": "California",
+    "zipCode": 94304
+  },
+  "appointments": [
+    {
+      "name": "Telsa Quarterly Report",
+      "description": "Quartly assesment of Tesla",
+      "location": "Tesla Manufactoring CA",
+      "startTime": "2021-03-05T11:50:55",
+      "endTime": "2021-03-05T12:50:55",
+      "otherAccount": {
+        "firstName": "Jeremiah",
+        "lastName": "Brandt",
+        "emailAddress": "jjb21930@ucmo.edu"
+      }
+    },
+    {
+      "name": "Car Sales Report",
+      "description": "Discuss potentional contact",
+      "location": "Ford Dealership",
+      "startTime": "2021-04-05T13:50:55",
+      "endTime": "2021-04-05T15:50:55",
+      "otherAccount": {
+        "firstName": "Henry",
+        "lastName": "Ford",
+        "emailAddress": "henry@ford.com"
+      }
+    },
+    {
+      "name": "Executive Lunch",
+      "description": "Catered meal",
+      "location": "Tesla Manufactoring CA",
+      "startTime": "2021-06-05T11:50:55",
+      "endTime": "2021-06-05T12:50:55",
+      "otherAccount": {
+        "firstName": "Jeff",
+        "lastName": "Bezos",
+        "emailAddress": "support@amazon.co"
+      }
+    }
+  ]
+}
