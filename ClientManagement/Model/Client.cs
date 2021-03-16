@@ -1,14 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using ClientManagement.Model;
 
-namespace ClientManagement.Model
+namespace AppointmentManagerApi.Model
 {
-    class Account
+    class Client
     {
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string EmailAddress { get; set; }
         public string Uid { get; set; }
+        Appointment[] Appointments { get; set; }
+        Professional[] FavoriteProfessional { get; set; }
     }
 }

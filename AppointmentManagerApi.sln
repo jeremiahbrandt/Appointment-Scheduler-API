@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30804.86
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ClientManagement", "ClientManagement\ClientManagement.csproj", "{CE55865B-3154-4692-A3E9-066A16C50049}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AppointmentManagerApi", "ClientManagement\AppointmentManagerApi.csproj", "{CE55865B-3154-4692-A3E9-066A16C50049}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

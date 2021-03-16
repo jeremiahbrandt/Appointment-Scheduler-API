@@ -1,12 +1,13 @@
 ﻿using FirebaseAdmin;
 using FirebaseAdmin.Auth;
 using Google.Apis.Auth.OAuth2;
+using System.Threading.Tasks;
 
 namespace ClientManagement
 {
     class Util
     {
-        protected static FirebaseAuth GetFirebase()
+        public static FirebaseAuth GetFirebase() 
         {
             var firebase = FirebaseAuth.DefaultInstance;
 
@@ -21,6 +22,12 @@ namespace ClientManagement
             }
 
             return firebase;
+        }
+
+        public static async Task<string> GetUid(string jwt)
+        {
+            var token = await FirebaseAuth.DefaultInstance.VerifyIdTokenAsync(jwt);
+            return token.Uid;
         }
     }
 }

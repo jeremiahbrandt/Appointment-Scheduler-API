@@ -7,18 +7,19 @@ using Microsoft.Azure.WebJobs.Extensions.Http;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
 using FirebaseAdmin.Auth;
+using static ClientManagement.Util;
 
-namespace ClientManagement.Service
+namespace ClientManagement.Endpoints.Professional
 {
-    public static class ProfessionalEndpoints
+    public static class GetAccount
     {
         [FunctionName("Professional")]
-        public static async Task<IActionResult> Run([HttpTrigger(AuthorizationLevel.Function, "get", "post", Route = null)] HttpRequest req, ILogger log)
+        public static async Task<IActionResult> Run([HttpTrigger(AuthorizationLevel.Anonymous, "get", "post", Route = null)] HttpRequest req, ILogger log)
         {
             FirebaseAuth firebase = Util.GetFirebase();
+            string uid = Util.GetUid(req.Headers["Authorization"]).Result;
 
-            FirebaseToken firebaseToken = await firebase.VerifyIdTokenAsync(req.Headers["Authorization"]);
-            UserRecord userRecord = await firebase.GetUserAsync(firebaseToken.Uid);
+            UserRecord userRecord = await firebase.GetUserAsync(uid);
 
             return new OkObjectResult(File.ReadAllText("C:\\Users\\jerem\\source\\repos\\ClientManagement\\ClientManagement\\DummyData\\ExampleProfessional.json"));
         }
