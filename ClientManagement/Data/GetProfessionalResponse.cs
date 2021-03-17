@@ -1,7 +1,8 @@
-﻿namespace AppointmentManagerApi.Model
+﻿namespace AppointmentManagerApi.Data
 {
-    class Location
+    class GetProfessionalResponse
     {
+        public string Occupation { get; set; }
         public int StreetNumber { get; set; }
         public string StreetName { get; set; }
         public string City { get; set; }

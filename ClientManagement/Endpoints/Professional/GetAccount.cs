@@ -8,20 +8,23 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
 using FirebaseAdmin.Auth;
 using static ClientManagement.Util;
+using AppointmentManagerApi.Services;
+using AppointmentManagerApi.Model;
 
 namespace ClientManagement.Endpoints.Professional
 {
     public static class GetAccount
     {
         [FunctionName("Professional")]
-        public static async Task<IActionResult> Run([HttpTrigger(AuthorizationLevel.Anonymous, "get", "post", Route = null)] HttpRequest req, ILogger log)
+        public static async Task<IActionResult> Run([HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = "professional")] HttpRequest req, ILogger log)
         {
             FirebaseAuth firebase = Util.GetFirebase();
-            string uid = Util.GetUid(req.Headers["Authorization"]).Result;
+            string uid = GetUid(req.Headers["Authorization"]).Result;
 
-            UserRecord userRecord = await firebase.GetUserAsync(uid);
+            ProfessionalService professionalService = new ProfessionalService();
+            ProfessionalModel professional = await professionalService.GetProfessional(uid);
 
-            return new OkObjectResult(File.ReadAllText("C:\\Users\\jerem\\source\\repos\\ClientManagement\\ClientManagement\\DummyData\\ExampleProfessional.json"));
+            return new OkObjectResult(professional);
         }
     }
 }

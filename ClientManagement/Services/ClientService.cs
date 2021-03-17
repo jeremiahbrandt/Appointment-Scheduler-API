@@ -4,7 +4,7 @@ using System;
 
 namespace AppointmentManagerApi.Services
 {
-    class ClientService : IClientService
+    class ClientService
     {
         public Client GetClient(string uid)
         {

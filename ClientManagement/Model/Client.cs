@@ -9,6 +9,6 @@ namespace AppointmentManagerApi.Model
         public string EmailAddress { get; set; }
         public string Uid { get; set; }
         Appointment[] Appointments { get; set; }
-        Professional[] FavoriteProfessional { get; set; }
+        ProfessionalModel[] FavoriteProfessional { get; set; }
     }
 }

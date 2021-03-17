@@ -5,7 +5,7 @@ using System.Text;
 
 namespace AppointmentManagerApi.Services
 {
-    class CalendarService : ICalendarService
+    class CalendarService
     {
         public bool CancelAppointment(int appointmentId)
         {

@@ -14,7 +14,7 @@ namespace ClientManagement.Endpoints.Client
     public static class GetAccount
     {
         [FunctionName("Client")]
-        public static IActionResult Run([HttpTrigger(AuthorizationLevel.Anonymous, "get")] HttpRequest req, ILogger log)
+        public static IActionResult Run([HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = "client")] HttpRequest req, ILogger log)
         {
             FirebaseAuth firebase = Util.GetFirebase();
             string uid = Util.GetUid(req.Headers["Authorization"]).Result;

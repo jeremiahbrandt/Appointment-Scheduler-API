@@ -7,7 +7,7 @@ using System.Text;
 
 namespace AppointmentManagerApi.Data
 {
-    class ClientDao : IClientDao
+    class ClientDao
     {
         public Client CreateClient()
         {
