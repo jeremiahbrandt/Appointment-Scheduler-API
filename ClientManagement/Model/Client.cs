@@ -4,11 +4,9 @@ namespace AppointmentManagerApi.Model
 {
     class Client
     {
-        public string FirstName { get; set; }
-        public string LastName { get; set; }
-        public string EmailAddress { get; set; }
+        public Account Account { get; set; }
         public string Uid { get; set; }
-        Appointment[] Appointments { get; set; }
-        ProfessionalModel[] FavoriteProfessional { get; set; }
+        public Appointment[] Appointments { get; set; }
+        public ProfessionalModel[] FavoriteProfessionals { get; set; }
     }
 }

@@ -15,12 +15,7 @@ namespace AppointmentManagerApi.Endpoints.Client
         [FunctionName("RegisterClient")]
         public static async Task<IActionResult> Run([HttpTrigger(AuthorizationLevel.Anonymous, "post", Route = "client/register")] HttpRequest req, ILogger log)
         {
-            FirebaseAuth firebase = Util.GetFirebase();
-            string uid = Util.GetUid(req.Headers["Authorization"]).Result;
-
-            UserRecord userRecord = await firebase.GetUserAsync(uid);
-
-            return new OkObjectResult(File.ReadAllText("C:\\Users\\jerem\\source\\repos\\ClientManagement\\ClientManagement\\DummyData\\ExampleClient.json"));
+            return new OkObjectResult("");
         }
     }
 }

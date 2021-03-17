@@ -1,7 +1,11 @@
 ﻿using AppointmentManagerApi.Model;
+using ClientManagement;
 using ClientManagement.Model;
+using Dapper;
 using System;
 using System.Collections.Generic;
+using System.Data;
+using System.Data.SqlClient;
 using System.IO;
 using System.Text;
 
@@ -14,10 +18,28 @@ namespace AppointmentManagerApi.Data
             throw new NotImplementedException();
         }
 
-        public Client GetClient(string uid)
+        public IList<GetClientAppointmentsResponse> GetClientAppointments(string uid)
         {
-            string json = File.ReadAllText("C:\\Users\\jerem\\source\\repos\\ClientManagement\\ClientManagement\\DummyData\\ExampleClient.json");
-            return Newtonsoft.Json.JsonConvert.DeserializeObject<Client>(json);
+            using (var connection = new SqlConnection(Util.GetConnectionString()))
+            {
+                var procedure = "Get_Client_Appointments";
+                var values = new { Uid = uid };
+                var result = connection.Query<GetClientAppointmentsResponse>(procedure, values, commandType: CommandType.StoredProcedure).AsList();
+
+                return result;
+            }
+        }
+
+        public IList<ClientFavorite> GetClientFavorites(string uid)
+        {
+            using (var connection = new SqlConnection(Util.GetConnectionString()))
+            {
+                var procedure = "Get_Client_Favorites";
+                var values = new { Uid = uid };
+                var result = connection.Query<ClientFavorite>(procedure, values, commandType: CommandType.StoredProcedure).AsList();
+
+                return result;
+            }
         }
     }
 }

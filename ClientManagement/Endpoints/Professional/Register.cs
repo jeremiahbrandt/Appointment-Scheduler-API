@@ -18,11 +18,7 @@ namespace AppointmentManagerApi.Endpoints.Professional
         [FunctionName("RegisterProfessional")]
         public static async Task<IActionResult> Run([HttpTrigger(AuthorizationLevel.Anonymous, "post", Route = "professional/register")] HttpRequest req, ILogger log)
         {
-            FirebaseAuth firebase = Util.GetFirebase();
-            string uid = Util.GetUid(req.Headers["Authorization"]).Result;
-
-            ProfessionalService professionalService = new ProfessionalService();
-            return new OkObjectResult(await professionalService.Register(req));
+            return new OkObjectResult("");
         }
     }
 }

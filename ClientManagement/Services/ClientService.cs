@@ -8,7 +8,22 @@ namespace AppointmentManagerApi.Services
     {
         public Client GetClient(string uid)
         {
-            Client client = new ClientDao().GetClient(uid);
+            ClientDao clientDao = new ClientDao();
+
+            var IEn = clientDao.GetClientAppointments(uid);
+            var appointments = clientDao.GetClientAppointments(uid);
+            var favorites = clientDao.GetClientFavorites(uid);
+
+            Client client = new Client() 
+            {
+                Account = new ClientManagement.Model.Account()
+                {
+                    
+                },
+                Appointments = new Appointment[appointments.Count],
+                FavoriteProfessionals = new ProfessionalModel[favorites.Count],
+            };
+
             return client;
         }
 
