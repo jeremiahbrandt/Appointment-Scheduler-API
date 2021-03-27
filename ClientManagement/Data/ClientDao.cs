@@ -6,8 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
-using System.IO;
-using System.Text;
+using System.Linq;
 
 namespace AppointmentManagerApi.Data
 {
@@ -16,6 +15,17 @@ namespace AppointmentManagerApi.Data
         public Client CreateClient()
         {
             throw new NotImplementedException();
+        }
+
+        public GetClientResponse GetClient(string uid) {
+            using (var connection = new SqlConnection(Util.GetConnectionString()))
+            {
+                var procedure = "Get_Client";
+                var values = new { Uid = uid };
+                var result = connection.Query<GetClientResponse>(procedure, values, commandType: CommandType.StoredProcedure).First();
+
+                return result;
+            }
         }
 
         public IList<GetClientAppointmentsResponse> GetClientAppointments(string uid)

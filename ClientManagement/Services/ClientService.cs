@@ -1,5 +1,6 @@
 ﻿using AppointmentManagerApi.Data;
 using AppointmentManagerApi.Model;
+using ClientManagement;
 using System;
 
 namespace AppointmentManagerApi.Services
@@ -10,7 +11,8 @@ namespace AppointmentManagerApi.Services
         {
             ClientDao clientDao = new ClientDao();
 
-            var IEn = clientDao.GetClientAppointments(uid);
+            var email = Util.GetUser(uid).Result.DisplayName;
+            var account = clientDao.GetClient(uid);
             var appointments = clientDao.GetClientAppointments(uid);
             var favorites = clientDao.GetClientFavorites(uid);
 
@@ -18,7 +20,10 @@ namespace AppointmentManagerApi.Services
             {
                 Account = new ClientManagement.Model.Account()
                 {
-                    
+                    FirstName = account.FirstName,
+                    LastName = account.LastName,
+                    EmailAddress = email,
+                    Uid = uid
                 },
                 Appointments = new Appointment[appointments.Count],
                 FavoriteProfessionals = new ProfessionalModel[favorites.Count],
