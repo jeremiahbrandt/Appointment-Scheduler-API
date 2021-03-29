@@ -2,9 +2,9 @@
 
 namespace AppointmentManagerApi.Model
 {
-    class TimeSlot
+    public class TimeSlot
     {
-        DateTime StartTime { get; set; }
-        DateTime EndTime { get; set; }
+        public DateTime StartTime { get; set; }
+        public DateTime EndTime { get; set; }
     }
 }

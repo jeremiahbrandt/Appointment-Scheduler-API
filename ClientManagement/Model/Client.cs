@@ -2,7 +2,7 @@
 
 namespace AppointmentManagerApi.Model
 {
-    class Client
+    public class Client
     {
         public Account Account { get; set; }
         public string Uid { get; set; }

@@ -2,7 +2,7 @@
 
 namespace AppointmentManagerApi.Model
 {
-    class ProfessionalModel
+    public class ProfessionalModel
     {
         public string Occupation { get; set; }
         public Account Account { get; set; }

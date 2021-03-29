@@ -1,12 +1,12 @@
 ﻿namespace AppointmentManagerApi.Model
 {
-    class Appointment
+    public class Appointment
     {
-        ProfessionalModel Professional { get; set; }
-        Client Client { get; set; }
-        TimeSlot TimeSlot { get; set; }
-        Location Location { get; set; }
-        string Name { get; set; }
-        string Description { get; set; }
+        public ProfessionalModel Professional { get; set; }
+        public Client Client { get; set; }
+        public TimeSlot TimeSlot { get; set; }
+        public Location Location { get; set; }
+        public string Name { get; set; }
+        public string Description { get; set; }
     }
 }

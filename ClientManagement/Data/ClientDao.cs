@@ -40,7 +40,7 @@ namespace AppointmentManagerApi.Data
             }
         }
 
-        public IList<ClientFavorite> GetClientFavorites(string uid)
+        public IList<GetClientFavoritesResponse> GetClientFavorites(string uid)
         {
             using (var connection = new SqlConnection(Util.GetConnectionString()))
             {
@@ -50,6 +50,11 @@ namespace AppointmentManagerApi.Data
 
                 return result;
             }
+        }
+
+        public GetProfessionalResponse GetProfessional(string uid)
+        {
+
         }
     }
 }
