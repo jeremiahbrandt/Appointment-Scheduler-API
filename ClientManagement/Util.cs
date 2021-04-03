@@ -21,9 +21,9 @@ namespace ClientManagement
             }
 
             Console.WriteLine($"\n\n{req.Headers["Authorization"]}\n\n");
-             return "SVqVVvLxlZQinsSHruz3BgWCdSC2";
-            //var token = await FirebaseAuth.DefaultInstance.VerifyIdTokenAsync(req.Headers["Authorization"]);
-            //return token.Uid;
+             //return "x45mZ9SUWoTUgRagvruOSrIemgI2";
+            var token = await FirebaseAuth.DefaultInstance.VerifyIdTokenAsync(req.Headers["Authorization"]);
+            return token.Uid;
         }
 
 
@@ -35,8 +35,8 @@ namespace ClientManagement
 
         public static string GetConnectionString()
         {
-            return "data source=JEREMIAH-PC\\MSSQLSERVER01; initial catalog=SE39104/3/2021; persist security info=True; Integrated Security=SSPI;";
-            // return Environment.GetEnvironmentVariable("Sql_Connection");
+            //return "data source=JEREMIAH-PC\\MSSQLSERVER01; initial catalog=SE39104/3/2021; persist security info=True; Integrated Security=SSPI;";
+             return Environment.GetEnvironmentVariable("Sql_Connection");
         }
 
         public static async Task<UserRecord> GetUser(string uid)

@@ -10,18 +10,24 @@ using System.Linq;
 
 namespace AppointmentManagerApi.Data
 {
-    class ClientDao
+    class ClientDao : IClientDao
     {
-        public Client CreateClient()
+        public GetClientResponse AddClient(ClientModel client)
         {
             throw new NotImplementedException();
         }
 
-        public GetClientResponse GetClient(string uid) {
+        public GetClientResponse AddClientFavorite(string clientUid, string professionalUid)
+        {
+            throw new NotImplementedException();
+        }
+
+        public GetClientResponse GetClient(string uid)
+        {
             using (var connection = new SqlConnection(Util.GetConnectionString()))
             {
-                var procedure = "Get_Client";
-                var values = new { Uid = uid };
+                var procedure = "GetClient";
+                var values = new { FirebaseUid = uid };
                 var result = connection.Query<GetClientResponse>(procedure, values, commandType: CommandType.StoredProcedure).First();
 
                 return result;
@@ -32,9 +38,9 @@ namespace AppointmentManagerApi.Data
         {
             using (var connection = new SqlConnection(Util.GetConnectionString()))
             {
-                var procedure = "Get_Client_Appointments";
-                var values = new { Uid = uid };
-                var result = connection.Query<GetClientAppointmentsResponse>(procedure, values, commandType: CommandType.StoredProcedure).AsList();
+                var procedure = "GetClientAppointments";
+                var values = new { FirebaseUid = uid };
+                var result = connection.Query<GetClientAppointmentsResponse>(procedure, values, commandType: CommandType.StoredProcedure).ToList();
 
                 return result;
             }
@@ -44,15 +50,25 @@ namespace AppointmentManagerApi.Data
         {
             using (var connection = new SqlConnection(Util.GetConnectionString()))
             {
-                var procedure = "Get_Client_Favorites";
-                var values = new { Uid = uid };
-                var result = connection.Query<GetClientFavoritesResponse>(procedure, values, commandType: CommandType.StoredProcedure).AsList();
+                var procedure = "GetClientFavorites";
+                var values = new { FirebaseUid = uid };
+                var result = connection.Query<GetClientFavoritesResponse>(procedure, values, commandType: CommandType.StoredProcedure).ToList();
 
                 return result;
             }
         }
 
-        public GetProfessionalResponse GetProfessional(string uid)
+        public bool RemoveClient(string uid)
+        {
+            throw new NotImplementedException();
+        }
+
+        public GetClientResponse RemoveClientFavorite(string clientUid, string professionalUid)
+        {
+            throw new NotImplementedException();
+        }
+
+        public GetClientResponse UpdateClient(ClientModel client)
         {
             throw new NotImplementedException();
         }

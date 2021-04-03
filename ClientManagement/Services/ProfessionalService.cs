@@ -24,54 +24,13 @@ namespace AppointmentManagerApi.Services
         {
             var firebaseUser = await Util.GetUser(uid);
             ProfessionalDao dao = new ProfessionalDao();
-            var getProfessional = dao.GetProfessional(uid);
-            var getAppointments = dao.GetAppointments(uid);
-            var getTimeSlots = dao.GetTimeSlots(uid);
 
-            ProfessionalModel professional = new ProfessionalModel()
+            ProfessionalModel professional = new ProfessionalModel(dao.GetProfessional(uid))
             {
-                Occupation = getProfessional.Occupation,
-                Account = new Account()
-                {
-                    FirstName = getProfessional.FirstName,
-                    LastName = getProfessional.LastName,
-                    EmailAddress = firebaseUser.Email,
-                    Uid = firebaseUser.Uid
-                },
-                Location = new Location()
-                {
-                    StreetNumber = getProfessional.StreetNumber,
-                    StreetName = getProfessional.StreetName,
-                    City = getProfessional.City,
-                    State = getProfessional.State,
-                    ZipCode = getProfessional.ZipCode
-                },
-                Appointments = new Appointment[getAppointments.Count],
-                OpenTimeSlots = new TimeSlot[getTimeSlots.Count]
+                Email = firebaseUser.Email,
+                Appointments = dao.GetAppointments(uid),
+                OpenTimeSlots = dao.GetTimeSlots(uid)
             };
-
-            for(int i=0; i<getAppointments.Count; i++)
-            {
-                var app = getAppointments[i];
-
-                professional.Appointments[i] = new Appointment()
-                {
-                    TimeSlot = new TimeSlot()
-                    {
-                        StartTime = Convert.ToDateTime(app.StartTime.ToString()),
-                        EndTime = Convert.ToDateTime(app.EndTime.ToString()),
-                    },
-                    Location = new Location()
-                    {
-                        StreetNumber = getProfessional.StreetNumber,
-                        StreetName = getProfessional.StreetName,
-                        City = getProfessional.City,
-                        State = getProfessional.State,
-                        ZipCode = getProfessional.ZipCode
-                    }
-
-                };
-            }
 
             return professional;
         }
