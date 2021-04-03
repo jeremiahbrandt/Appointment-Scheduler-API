@@ -11,9 +11,14 @@ namespace AppointmentManagerApi.Data
 {
     public class ProfessionalDao : IProfessionalDao
     {
-        public GetProfessionalResponse AddProfessional()
+        public void AddProfessional(ProfessionalRegistrationRequest professionalRegistrationRequest)
         {
-            throw new NotImplementedException();
+            using (var connection = new SqlConnection(Util.GetConnectionString()))
+            {
+                var procedure = "AddProfessional";
+                var values = professionalRegistrationRequest;
+                connection.Query<GetProfessionalResponse>(procedure, values, commandType: CommandType.StoredProcedure);
+            }
         }
         public GetProfessionalResponse GetProfessional(string uid)
         {
