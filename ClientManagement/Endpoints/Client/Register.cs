@@ -1,5 +1,6 @@
 using System.IO;
 using System.Threading.Tasks;
+using AppointmentManagerApi.Services;
 using ClientManagement;
 using FirebaseAdmin.Auth;
 using Microsoft.AspNetCore.Http;
@@ -13,9 +14,12 @@ namespace AppointmentManagerApi.Endpoints.Client
     public static class Register
     {
         [FunctionName("RegisterClient")]
-        public static IActionResult Run([HttpTrigger(AuthorizationLevel.Anonymous, "post", Route = "client/register")] HttpRequest req, ILogger log)
+        public static async Task<IActionResult> RunAsync([HttpTrigger(AuthorizationLevel.Anonymous, "post", Route = "client/register")] HttpRequest req, ILogger log)
         {
-            return new OkObjectResult("");
+            var clientService = new ClientService();
+            var client = await clientService.Register(req);
+
+            return new OkObjectResult(client);
         }
     }
 }

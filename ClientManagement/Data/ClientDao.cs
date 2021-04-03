@@ -12,9 +12,14 @@ namespace AppointmentManagerApi.Data
 {
     class ClientDao : IClientDao
     {
-        public GetClientResponse AddClient(ClientModel client)
+        public void AddClient(GetClientResponse client)
         {
-            throw new NotImplementedException();
+            using (var connection = new SqlConnection(Util.GetConnectionString()))
+            {
+                var procedure = "AddClient";
+                var values = client;
+                connection.Query<GetClientResponse>(procedure, values, commandType: CommandType.StoredProcedure);
+            }
         }
 
         public GetClientResponse AddClientFavorite(string clientUid, string professionalUid)
@@ -68,7 +73,7 @@ namespace AppointmentManagerApi.Data
             throw new NotImplementedException();
         }
 
-        public GetClientResponse UpdateClient(ClientModel client)
+        public void UpdateClient(GetClientResponse client)
         {
             throw new NotImplementedException();
         }

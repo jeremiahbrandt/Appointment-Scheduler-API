@@ -1,35 +1,42 @@
 ﻿using AppointmentManagerApi.Data;
 using AppointmentManagerApi.Model;
 using ClientManagement;
-using ClientManagement.Model;
 using Microsoft.AspNetCore.Http;
 using Newtonsoft.Json;
-using System;
 using System.Threading.Tasks;
 
 namespace AppointmentManagerApi.Services
 {
     class ProfessionalService
     {
+        private static ProfessionalDao professionalDao;
+        public ProfessionalService()
+        {
+            if(professionalDao == null)
+            {
+                professionalDao = new ProfessionalDao();
+            }
+        }
+
         public async Task<ProfessionalModel> Register(HttpRequest req)
         {
-            string reqString = await Util.StreamToStringAsync(req);
-            ProfessionalModel inputProfessionalModel =  JsonConvert.DeserializeObject<ProfessionalModel>(reqString);
-          /*  ProfessionalModel resultProfessionalModel = await new ProfessionalDao().CreateAccount(inputProfessionalModel);*/
+            var uid = Util.GetUid(req).Result;
 
-            return new ProfessionalModel();
+            string reqString = await Util.StreamToStringAsync(req);
+            var registration =  JsonConvert.DeserializeObject<ProfessionalRegistrationRequest>(reqString);
+            professionalDao.AddProfessional(registration);
+            return await GetProfessional(uid);
         }
 
         public async Task<ProfessionalModel> GetProfessional(string uid)
         {
             var firebaseUser = await Util.GetUser(uid);
-            ProfessionalDao dao = new ProfessionalDao();
 
-            ProfessionalModel professional = new ProfessionalModel(dao.GetProfessional(uid))
+            ProfessionalModel professional = new ProfessionalModel(professionalDao.GetProfessional(uid))
             {
                 Email = firebaseUser.Email,
-                Appointments = dao.GetAppointments(uid),
-                OpenTimeSlots = dao.GetTimeSlots(uid)
+                Appointments = professionalDao.GetAppointments(uid),
+                OpenTimeSlots = professionalDao.GetTimeSlots(uid)
             };
 
             return professional;
