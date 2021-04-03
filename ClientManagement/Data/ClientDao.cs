@@ -65,7 +65,12 @@ namespace AppointmentManagerApi.Data
 
         public void RemoveClient(string uid)
         {
-            throw new NotImplementedException();
+            using (var connection = new SqlConnection(Util.GetConnectionString()))
+            {
+                var procedure = "RemoveClient";
+                var values = new { FirebaseUid = uid };
+                connection.Query(procedure, values, commandType: CommandType.StoredProcedure);
+            }
         }
 
         public GetClientResponse RemoveClientFavorite(string clientUid, string professionalUid)

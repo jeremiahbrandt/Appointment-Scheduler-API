@@ -47,15 +47,7 @@ namespace AppointmentManagerApi.Services
             try
             {
                 professionalDao.RemoveProfessional(uid);
-                try
-                {
-                    professionalDao.GetProfessional(uid);
-                    return true;
-                }
-                catch
-                {
-                    return false;
-                }
+                return true;
             }
             catch
             {

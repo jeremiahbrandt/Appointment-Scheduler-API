@@ -43,5 +43,19 @@ namespace AppointmentManagerApi.Services
             clientDao.AddClient(registration);
             return await GetClient(uid);
         }
+
+        public bool DeleteAccount(string uid)
+        {
+            try
+            {
+                clientDao.RemoveClient(uid);
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
     }
 }

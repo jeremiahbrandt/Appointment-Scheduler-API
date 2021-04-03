@@ -9,16 +9,16 @@ using Microsoft.Azure.WebJobs.Extensions.Http;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 
-namespace AppointmentManagerApi.Endpoints.Professional
+namespace AppointmentManagerApi.Endpoints.Client
 {
     public static class DeleteAccount
     {
-        [FunctionName("DeleteProfessional")]
-        public static IActionResult Run([HttpTrigger(AuthorizationLevel.Anonymous, "delete", Route = "professional")] HttpRequest req, ILogger log)
+        [FunctionName("DeleteClientAccount")]
+        public static IActionResult Run([HttpTrigger(AuthorizationLevel.Anonymous, "delete", Route = "client")] HttpRequest req, ILogger log)
         {
-            ProfessionalService professionalService = new ProfessionalService();
+            var clientService = new ClientService();
             var uid = Util.GetUid(req).Result;
-            var success = professionalService.DeleteProfessionalAccount(uid);
+            var success = clientService.DeleteAccount(uid);
             if (success)
             {
                 return new NoContentResult();
