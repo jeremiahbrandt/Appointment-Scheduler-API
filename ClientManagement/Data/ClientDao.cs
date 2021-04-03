@@ -63,7 +63,7 @@ namespace AppointmentManagerApi.Data
             }
         }
 
-        public bool RemoveClient(string uid)
+        public void RemoveClient(string uid)
         {
             throw new NotImplementedException();
         }

@@ -60,9 +60,14 @@ namespace AppointmentManagerApi.Data
             }
         }
 
-        public bool RemoveProfessional(string uid)
+        public void RemoveProfessional(string uid)
         {
-            throw new NotImplementedException();
+            using (var connection = new SqlConnection(Util.GetConnectionString()))
+            {
+                var procedure = "RemoveProfessional";
+                var values = new { FirebaseUid = uid };
+                connection.Query(procedure, values, commandType: CommandType.StoredProcedure);
+            }
         }
     }
 }
