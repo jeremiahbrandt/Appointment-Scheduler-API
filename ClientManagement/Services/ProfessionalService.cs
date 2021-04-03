@@ -9,12 +9,17 @@ namespace AppointmentManagerApi.Services
 {
     class ProfessionalService
     {
-        private static ProfessionalDao professionalDao;
+        private static IProfessionalDao professionalDao;
+        private static ICalendarDao calendarDao;
         public ProfessionalService()
         {
             if(professionalDao == null)
             {
                 professionalDao = new ProfessionalDao();
+            }
+            if (calendarDao == null)
+            {
+                calendarDao = new CalendarDao();
             }
         }
 
@@ -54,6 +59,19 @@ namespace AppointmentManagerApi.Services
                 return false;
             }
 
+        }
+
+        public async Task<ProfessionalModel> AddTimeSlot(HttpRequest request) 
+        {
+            var uid = Util.GetUid(request).Result;
+
+            var requestString = await Util.StreamToStringAsync(request);
+            var timeslot = JsonConvert.DeserializeObject<TimeSlotModel>(requestString);
+
+
+            calendarDao.AddTimeSlot(uid, timeslot);
+            var professional = GetProfessional(uid).Result;
+            return professional;
         }
     }
 }

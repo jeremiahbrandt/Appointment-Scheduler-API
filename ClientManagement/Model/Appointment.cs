@@ -6,7 +6,7 @@ namespace AppointmentManagerApi.Model
     {
         public Account Professional { get; set; }
         public Account Client { get; set; }
-        public TimeSlot TimeSlot { get; set; }
+        public TimeSlotModel TimeSlot { get; set; }
         public Location Location { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
