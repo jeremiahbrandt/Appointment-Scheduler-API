@@ -46,10 +46,8 @@ namespace AppointmentManagerApi.Services
                         {
                             FirstName = appointment.ProfessionalFirstName,
                             LastName = appointment.ProfessionalLastName,
-                            EmailAddress = appointment.ProfessionalEmailAddress,
-                            Uid = appointment.ProfessionalUid
                         },
-                        Occupation = appointment.ProfessionalOccupation
+                        Occupation = appointment.Occupation
                     },
                     Location = new Location()
                     {
@@ -59,11 +57,11 @@ namespace AppointmentManagerApi.Services
                         State = appointment.State,
                         ZipCode = appointment.ZipCode
                     },
-                    TimeSlot = new TimeSlot()/*
+                    TimeSlot = new TimeSlot()
                     {
-                        StartTime = new DateTime(appointment.StartTime),
-                        EndTime = new DateTime(appointment.EndTime)
-                    }*/
+                        StartTime = Convert.ToDateTime(appointment.StartTime.ToString()),
+                        EndTime = Convert.ToDateTime(appointment.EndTime.ToString())
+                    }
                 };
             };
               
@@ -77,8 +75,7 @@ namespace AppointmentManagerApi.Services
                     Account = new Account()
                     {
                         FirstName = professional.FirstName,
-                        LastName = professional.LastName,
-                        EmailAddress = professional.EmailAddress
+                        LastName = professional.LastName
                     },
                     Occupation = professional.Occupation,
                     Location = new Location()

@@ -9,48 +9,55 @@ using System.Linq;
 
 namespace AppointmentManagerApi.Data
 {
-    class ProfessionalDao
+    public class ProfessionalDao : IProfessionalDao
     {
-        public ProfessionalModel CreateAccount(ProfessionalModel professional)
+        public GetProfessionalResponse AddProfessional()
         {
-            Console.WriteLine(Util.GetConnectionString());
-            return new ProfessionalModel();
+            throw new NotImplementedException();
         }
-
         public GetProfessionalResponse GetProfessional(string uid)
         {
             using (var connection = new SqlConnection(Util.GetConnectionString()))
             {
-                var procedure = "Get_Professional";
-                var values = new { Uid = uid };
+                var procedure = "GetProfessional";
+                var values = new { FirebaseUid = uid };
                 var result = connection.Query<GetProfessionalResponse>(procedure, values, commandType: CommandType.StoredProcedure).First();
 
                 return result;
             }
         }
+        public GetProfessionalResponse UpdateProfessional()
+        {
+            throw new NotImplementedException();
+        }
 
-        public IEnumerable<GetProfessionalAppointmentsResponse> GetProfessionalAppointments(string uid)
+        public IList<GetProfessionalTimeSlotsResponse> GetTimeSlots(string uid)
         {
             using (var connection = new SqlConnection(Util.GetConnectionString()))
             {
-                var procedure = "Get_Professional_Appointments";
-                var values = new { Uid = uid };
-                var result = connection.Query<GetProfessionalAppointmentsResponse>(procedure, values, commandType: CommandType.StoredProcedure);
+                var procedure = "GetProfessionalTimeSlots";
+                var values = new { FirebaseUid = uid };
+                var result = connection.Query<GetProfessionalTimeSlotsResponse>(procedure, values, commandType: CommandType.StoredProcedure).ToList();
 
                 return result;
             }
         }
 
-        public IEnumerable<GetProfessionalTimeSlotsResponse> GetProfessionalTimeSlots(string uid)
+        public IList<GetProfessionalAppointmentsResponse> GetAppointments(string uid)
         {
             using (var connection = new SqlConnection(Util.GetConnectionString()))
             {
-                var procedure = "Get_Professional_TimeSlots";
-                var values = new { Uid = uid };
-                var result = connection.Query<GetProfessionalTimeSlotsResponse>(procedure, values, commandType: CommandType.StoredProcedure);
+                var procedure = "GetProfessionalAppointments";
+                var values = new { FirebaseUid = uid };
+                var result = connection.Query<GetProfessionalAppointmentsResponse>(procedure, values, commandType: CommandType.StoredProcedure).ToList();
 
                 return result;
             }
+        }
+
+        public bool RemoveProfessional(string uid)
+        {
+            throw new NotImplementedException();
         }
     }
 }

@@ -1,9 +1,11 @@
-﻿namespace AppointmentManagerApi.Model
+﻿using ClientManagement.Model;
+
+namespace AppointmentManagerApi.Model
 {
     public class Appointment
     {
-        public ProfessionalModel Professional { get; set; }
-        public Client Client { get; set; }
+        public Account Professional { get; set; }
+        public Account Client { get; set; }
         public TimeSlot TimeSlot { get; set; }
         public Location Location { get; set; }
         public string Name { get; set; }

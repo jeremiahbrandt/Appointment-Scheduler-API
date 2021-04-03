@@ -4,6 +4,7 @@ using ClientManagement;
 using ClientManagement.Model;
 using Microsoft.AspNetCore.Http;
 using Newtonsoft.Json;
+using System;
 using System.Threading.Tasks;
 
 namespace AppointmentManagerApi.Services
@@ -21,20 +22,21 @@ namespace AppointmentManagerApi.Services
 
         public async Task<ProfessionalModel> GetProfessional(string uid)
         {
+            var firebaseUser = await Util.GetUser(uid);
             ProfessionalDao dao = new ProfessionalDao();
             var getProfessional = dao.GetProfessional(uid);
-          /*  var appointments = dao.GetProfessionalAppointments(uid);
-            var timeSlots = dao.GetProfessionalTimeSlots(uid);*/
-            var user = await Util.GetUser(uid);
+            var getAppointments = dao.GetAppointments(uid);
+            var getTimeSlots = dao.GetTimeSlots(uid);
 
             ProfessionalModel professional = new ProfessionalModel()
             {
                 Occupation = getProfessional.Occupation,
                 Account = new Account()
                 {
-                    FirstName = user.DisplayName,
-                    EmailAddress = user.DisplayName,
-                    Uid = user.Uid
+                    FirstName = getProfessional.FirstName,
+                    LastName = getProfessional.LastName,
+                    EmailAddress = firebaseUser.Email,
+                    Uid = firebaseUser.Uid
                 },
                 Location = new Location()
                 {
@@ -44,7 +46,32 @@ namespace AppointmentManagerApi.Services
                     State = getProfessional.State,
                     ZipCode = getProfessional.ZipCode
                 },
+                Appointments = new Appointment[getAppointments.Count],
+                OpenTimeSlots = new TimeSlot[getTimeSlots.Count]
             };
+
+            for(int i=0; i<getAppointments.Count; i++)
+            {
+                var app = getAppointments[i];
+
+                professional.Appointments[i] = new Appointment()
+                {
+                    TimeSlot = new TimeSlot()
+                    {
+                        StartTime = Convert.ToDateTime(app.StartTime.ToString()),
+                        EndTime = Convert.ToDateTime(app.EndTime.ToString()),
+                    },
+                    Location = new Location()
+                    {
+                        StreetNumber = getProfessional.StreetNumber,
+                        StreetName = getProfessional.StreetName,
+                        City = getProfessional.City,
+                        State = getProfessional.State,
+                        ZipCode = getProfessional.ZipCode
+                    }
+
+                };
+            }
 
             return professional;
         }
