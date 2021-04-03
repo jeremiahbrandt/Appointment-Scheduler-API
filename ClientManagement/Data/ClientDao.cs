@@ -1,8 +1,5 @@
-﻿using AppointmentManagerApi.Model;
-using ClientManagement;
-using ClientManagement.Model;
+﻿using ClientManagement;
 using Dapper;
-using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
@@ -22,9 +19,18 @@ namespace AppointmentManagerApi.Data
             }
         }
 
-        public GetClientResponse AddClientFavorite(string clientUid, string professionalUid)
+        public void AddClientFavorite(string clientUid, string professionalUid)
         {
-            throw new NotImplementedException();
+            using (var connection = new SqlConnection(Util.GetConnectionString()))
+            {
+                var procedure = "AddClientFavorite";
+                var values = new 
+                { 
+                    ClientFirebaseUid = clientUid,
+                    ProfessionalFirebaseUid = professionalUid
+                };
+                connection.Query(procedure, values, commandType: CommandType.StoredProcedure);
+            }
         }
 
         public GetClientResponse GetClient(string uid)
@@ -73,14 +79,28 @@ namespace AppointmentManagerApi.Data
             }
         }
 
-        public GetClientResponse RemoveClientFavorite(string clientUid, string professionalUid)
+        public void RemoveClientFavorite(string clientUid, string professionalUid)
         {
-            throw new NotImplementedException();
+            using (var connection = new SqlConnection(Util.GetConnectionString()))
+            {
+                var procedure = "RemoveClientFavorite";
+                var values = new
+                {
+                    ClientFirebaseUid = clientUid,
+                    ProfessionalFirebaseUid = professionalUid
+                };
+                connection.Query(procedure, values, commandType: CommandType.StoredProcedure);
+            }
         }
 
         public void UpdateClient(GetClientResponse client)
         {
-            throw new NotImplementedException();
+            using (var connection = new SqlConnection(Util.GetConnectionString()))
+            {
+                var procedure = "UpdateClient";
+                var values = client;
+                connection.Query<GetClientResponse>(procedure, values, commandType: CommandType.StoredProcedure);
+            }
         }
     }
 }

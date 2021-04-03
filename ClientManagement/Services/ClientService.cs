@@ -57,5 +57,20 @@ namespace AppointmentManagerApi.Services
             }
         }
 
+        public async Task<ClientModel> AddFavorite(string clientUid, HttpRequest request)
+        {
+            var requestString = await Util.StreamToStringAsync(request);
+            var professionalUid = JsonConvert.DeserializeObject<FavoriteRequest>(requestString).Uid;
+            clientDao.AddClientFavorite(clientUid, professionalUid);
+            return await GetClient(clientUid);
+        }
+        public async Task<ClientModel> RemoveFavorite(string clientUid, HttpRequest request)
+        {
+            var requestString = await Util.StreamToStringAsync(request);
+            var professionalUid = JsonConvert.DeserializeObject<FavoriteRequest>(requestString).Uid;
+            clientDao.RemoveClientFavorite(clientUid, professionalUid);
+            return await GetClient(clientUid);
+        }
+
     }
 }

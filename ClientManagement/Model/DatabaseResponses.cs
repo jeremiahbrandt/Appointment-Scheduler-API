@@ -20,20 +20,17 @@ namespace AppointmentManagerApi.Data
 
     public class GetProfessionalTimeSlotsResponse
     {
-        public string FirebaseUid { get; set; }
-        public string TimeSlotId { get; set; }
+        public int TimeSlotId { get; set; }
         public string StartTime { get; set; }
         public string EndTime { get; set; }
     }
 
     public class GetProfessionalAppointmentsResponse
     {
-        public string ProfessionalUid { get; set; }
         public string StartTime { get; set; }
         public string EndTime { get; set; }
         public string AppointmentName { get; set; }
         public string AppointmentDescription { get; set; }
-        public string ClientUid { get; set; }
         public string ClientFirstName { get; set; }
         public string ClientLastName { get; set; }
     }
