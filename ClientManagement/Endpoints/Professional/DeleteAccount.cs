@@ -18,15 +18,8 @@ namespace AppointmentManagerApi.Endpoints.Professional
         {
             ProfessionalService professionalService = new ProfessionalService();
             var uid = Util.GetUid(req).Result;
-            var success = professionalService.DeleteProfessionalAccount(uid);
-            if (success)
-            {
-                return new NoContentResult();
-            }
-            else
-            {
-                return new BadRequestResult();
-            }
+            professionalService.DeleteProfessionalAccount(uid);
+            return new NoContentResult();
         }
     }
 }

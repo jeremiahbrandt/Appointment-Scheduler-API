@@ -18,15 +18,8 @@ namespace AppointmentManagerApi.Endpoints.Client
         {
             var clientService = new ClientService();
             var uid = Util.GetUid(req).Result;
-            var success = clientService.DeleteAccount(uid);
-            if (success)
-            {
-                return new NoContentResult();
-            }
-            else
-            {
-                return new BadRequestResult();
-            }
+            clientService.DeleteAccount(uid);
+            return new NoContentResult();
         }
     }
 }

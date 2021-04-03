@@ -47,17 +47,9 @@ namespace AppointmentManagerApi.Services
             return professional;
         }
 
-        public bool DeleteProfessionalAccount(string uid)
+        public void DeleteProfessionalAccount(string uid)
         {
-            try
-            {
-                professionalDao.RemoveProfessional(uid);
-                return true;
-            }
-            catch
-            {
-                return false;
-            }
+            professionalDao.RemoveProfessional(uid);
 
         }
 

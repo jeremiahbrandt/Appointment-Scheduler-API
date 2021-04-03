@@ -40,21 +40,14 @@ namespace AppointmentManagerApi.Services
 
             string reqString = await Util.StreamToStringAsync(req);
             var registration = JsonConvert.DeserializeObject<GetClientResponse>(reqString);
+            registration.FirebaseUid = uid;
             clientDao.AddClient(registration);
             return await GetClient(uid);
         }
 
-        public bool DeleteAccount(string uid)
+        public void DeleteAccount(string uid)
         {
-            try
-            {
-                clientDao.RemoveClient(uid);
-                return true;
-            }
-            catch
-            {
-                return false;
-            }
+            clientDao.RemoveClient(uid);
         }
 
         public async Task<ClientModel> AddFavorite(string clientUid, HttpRequest request)
