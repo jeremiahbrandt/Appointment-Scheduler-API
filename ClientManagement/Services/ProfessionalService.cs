@@ -4,6 +4,7 @@ using ClientManagement;
 using ClientManagement.Model;
 using Microsoft.AspNetCore.Http;
 using Newtonsoft.Json;
+using System;
 using System.Threading.Tasks;
 
 namespace AppointmentManagerApi.Services
@@ -21,29 +22,14 @@ namespace AppointmentManagerApi.Services
 
         public async Task<ProfessionalModel> GetProfessional(string uid)
         {
+            var firebaseUser = await Util.GetUser(uid);
             ProfessionalDao dao = new ProfessionalDao();
-            var getProfessional = dao.GetProfessional(uid);
-          /*  var appointments = dao.GetProfessionalAppointments(uid);
-            var timeSlots = dao.GetProfessionalTimeSlots(uid);*/
-            var user = await Util.GetUser(uid);
 
-            ProfessionalModel professional = new ProfessionalModel()
+            ProfessionalModel professional = new ProfessionalModel(dao.GetProfessional(uid))
             {
-                Occupation = getProfessional.Occupation,
-                Account = new Account()
-                {
-                    FirstName = user.DisplayName,
-                    EmailAddress = user.DisplayName,
-                    Uid = user.Uid
-                },
-                Location = new Location()
-                {
-                    StreetNumber = getProfessional.StreetNumber,
-                    StreetName = getProfessional.StreetName,
-                    City = getProfessional.City,
-                    State = getProfessional.State,
-                    ZipCode = getProfessional.ZipCode
-                },
+                Email = firebaseUser.Email,
+                Appointments = dao.GetAppointments(uid),
+                OpenTimeSlots = dao.GetTimeSlots(uid)
             };
 
             return professional;

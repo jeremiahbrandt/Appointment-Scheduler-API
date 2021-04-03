@@ -1,38 +1,31 @@
 ﻿using AppointmentManagerApi.Data;
 using AppointmentManagerApi.Model;
 using ClientManagement;
+using ClientManagement.Model;
 using System;
+using System.Threading.Tasks;
 
 namespace AppointmentManagerApi.Services
 {
     class ClientService
     {
-        public Client GetClient(string uid)
+        public async Task<ClientModel> GetClient(string uid)
         {
-            ClientDao clientDao = new ClientDao();
+            var firebaseUser = await Util.GetUser(uid);
+            var clientDao = new ClientDao();
 
-            var email = Util.GetUser(uid).Result.DisplayName;
-            var account = clientDao.GetClient(uid);
-            var appointments = clientDao.GetClientAppointments(uid);
-            var favorites = clientDao.GetClientFavorites(uid);
-
-            Client client = new Client() 
+            var client = new ClientModel(clientDao.GetClient(uid))
             {
-                Account = new ClientManagement.Model.Account()
-                {
-                    FirstName = account.FirstName,
-                    LastName = account.LastName,
-                    EmailAddress = email,
-                    Uid = uid
-                },
-                Appointments = new Appointment[appointments.Count],
-                FavoriteProfessionals = new ProfessionalModel[favorites.Count],
+                Email = firebaseUser.Email,
+                Appointments = clientDao.GetClientAppointments(uid),
+                FavoriteProfessionals = clientDao.GetClientFavorites(uid)
             };
 
             return client;
+                
         }
 
-        public Client Register()
+        public ClientModel Register()
         {
             throw new NotImplementedException();
         }

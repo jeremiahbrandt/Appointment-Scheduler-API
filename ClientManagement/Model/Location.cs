@@ -1,6 +1,6 @@
 ﻿namespace AppointmentManagerApi.Model
 {
-    class Location
+    public class Location
     {
         public int StreetNumber { get; set; }
         public string StreetName { get; set; }
