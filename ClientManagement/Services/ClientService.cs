@@ -59,12 +59,12 @@ namespace AppointmentManagerApi.Services
                         State = appointment.State,
                         ZipCode = appointment.ZipCode
                     },
-                    TimeSlot = new TimeSlot()
-                    {/*
+                    TimeSlot = new TimeSlot()/*
+                    {
                         StartTime = new DateTime(appointment.StartTime),
-                        EndTime = new DateTime(appointment.EndTime)*/
-                    }
-                }
+                        EndTime = new DateTime(appointment.EndTime)
+                    }*/
+                };
             };
               
 

@@ -46,7 +46,7 @@ namespace AppointmentManagerApi.Data
             {
                 var procedure = "Get_Client_Favorites";
                 var values = new { Uid = uid };
-                var result = connection.Query<ClientFavorite>(procedure, values, commandType: CommandType.StoredProcedure).AsList();
+                var result = connection.Query<GetClientFavoritesResponse>(procedure, values, commandType: CommandType.StoredProcedure).AsList();
 
                 return result;
             }
@@ -54,7 +54,7 @@ namespace AppointmentManagerApi.Data
 
         public GetProfessionalResponse GetProfessional(string uid)
         {
-
+            throw new NotImplementedException();
         }
     }
 }

@@ -12,7 +12,7 @@ namespace ClientManagement.Endpoints.Client
         [FunctionName("Client")]
         public static IActionResult Run([HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = "client")] HttpRequest req, ILogger log)
         {
-            string uid = Util.GetUid(req).Result;
+            var uid = Util.GetUidAsync(req).Result;
 
             var client = new ClientService().GetClient(uid);
             return new OkObjectResult(client);

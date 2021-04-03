@@ -13,7 +13,7 @@ namespace AppointmentManagerApi.Endpoints.Client
     public static class Register
     {
         [FunctionName("RegisterClient")]
-        public static async Task<IActionResult> Run([HttpTrigger(AuthorizationLevel.Anonymous, "post", Route = "client/register")] HttpRequest req, ILogger log)
+        public static IActionResult Run([HttpTrigger(AuthorizationLevel.Anonymous, "post", Route = "client/register")] HttpRequest req, ILogger log)
         {
             return new OkObjectResult("");
         }

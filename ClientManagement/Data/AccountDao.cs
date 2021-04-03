@@ -9,7 +9,7 @@ namespace AppointmentManagerApi.Data
     {
         public Account GetAccount()
         {
-
+            return new Account();
         }
     }
 }

@@ -16,7 +16,7 @@ namespace AppointmentManagerApi.Endpoints.Professional
     public static class Register
     {
         [FunctionName("RegisterProfessional")]
-        public static async Task<IActionResult> Run([HttpTrigger(AuthorizationLevel.Anonymous, "post", Route = "professional/register")] HttpRequest req, ILogger log)
+        public static IActionResult Run([HttpTrigger(AuthorizationLevel.Anonymous, "post", Route = "professional/register")] HttpRequest req, ILogger log)
         {
             return new OkObjectResult("");
         }
