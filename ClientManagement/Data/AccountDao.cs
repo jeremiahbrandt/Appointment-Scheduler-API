@@ -9,7 +9,7 @@ namespace AppointmentManagerApi.Data
     {
         public Account GetAccount()
         {
-
+            throw new NotImplementedException();
         }
     }
 }
