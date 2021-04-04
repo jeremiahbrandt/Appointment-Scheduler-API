@@ -80,5 +80,14 @@ namespace AppointmentManagerApi.Services
             return await GetClient(clientUid);
         }
 
+        public async Task<ClientModel> CancelAppointment(HttpRequest request)
+        {
+            var uid = Util.GetUid(request).Result;
+
+            var requestString = await Util.StreamToStringAsync(request);
+            var timeSlotId = JsonConvert.DeserializeObject<AppointmentCancellationRequest>(requestString).TimeSlotId;
+            calendarDao.RemoveAppointment(timeSlotId);
+            return await GetClient(uid);
+        }
     }
 }
