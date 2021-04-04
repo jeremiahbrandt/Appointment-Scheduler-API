@@ -11,12 +11,18 @@ namespace AppointmentManagerApi.Services
 {
     class ClientService
     {
-        private static ClientDao clientDao;
+        private static IClientDao clientDao;
+        private static ICalendarDao calendarDao;
+
         public ClientService()
         {
             if(clientDao == null)
             {
                 clientDao = new ClientDao();
+            }
+            if (calendarDao == null)
+            {
+                calendarDao = new CalendarDao();
             }
         }
         public async Task<ClientModel> GetClient(string uid)
@@ -62,6 +68,15 @@ namespace AppointmentManagerApi.Services
             var requestString = await Util.StreamToStringAsync(request);
             var professionalUid = JsonConvert.DeserializeObject<FavoriteRequest>(requestString).Uid;
             clientDao.RemoveClientFavorite(clientUid, professionalUid);
+            return await GetClient(clientUid);
+        }
+
+        public async Task<ClientModel> ScheduleAppointment(string clientUid, HttpRequest request)
+        {
+            var requestString = await Util.StreamToStringAsync(request);
+            var appointmentRequest = JsonConvert.DeserializeObject<AppointmentRequest>(requestString);
+            appointmentRequest.ClientFirebaseUid = clientUid;
+            calendarDao.AddAppointment(appointmentRequest);
             return await GetClient(clientUid);
         }
 

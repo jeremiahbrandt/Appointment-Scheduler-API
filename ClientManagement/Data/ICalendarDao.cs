@@ -9,7 +9,7 @@ namespace AppointmentManagerApi.Data
     {
         public void AddTimeSlot(string uid, TimeSlotModel timeSlot);
         public void RemoveTimeSlot(int timeSlotId);
-        public void AddAppointment(string clientUid, int timeSlotId);
+        public void AddAppointment(AppointmentRequest appointmentRequest);
         public void RemoveAppointment(int timeSlotId);
     }
 }

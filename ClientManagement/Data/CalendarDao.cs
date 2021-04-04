@@ -9,9 +9,14 @@ namespace AppointmentManagerApi.Data
 {
     public class CalendarDao : ICalendarDao
     {
-        public void AddAppointment(string clientUid, int timeSlotId)
+        public void AddAppointment(AppointmentRequest appointmentRequest)
         {
-            throw new NotImplementedException();
+            using (var connection = new SqlConnection(Util.GetConnectionString()))
+            {
+                var procedure = "AddAppointment";
+                var values = appointmentRequest;
+                connection.Query(procedure, values, commandType: CommandType.StoredProcedure);
+            }
         }
 
         public void AddTimeSlot(string uid, TimeSlotModel timeSlot)
