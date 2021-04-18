@@ -14,9 +14,19 @@ namespace ClientManagement.Endpoints.Professional
         [FunctionName("Professional")]
         public static async Task<IActionResult> Run([HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = "professional")] HttpRequest req, ILogger log)
         {
-            ProfessionalService professionalService = new ProfessionalService();
-            var uid = Util.GetUid(req).Result;
-            ProfessionalModel professional = await professionalService.GetProfessional(uid);
+            var professionalService = new ProfessionalService();
+            string code = req.Query["code"];
+
+            ProfessionalModel professional;
+            if(code != null)
+            {
+                professional = professionalService.GetProfessionalByCode(code);
+            } 
+            else
+            {
+                var uid = Util.GetUid(req).Result;
+                professional = await professionalService.GetProfessional(uid);
+            }
 
             return new OkObjectResult(professional);
         }

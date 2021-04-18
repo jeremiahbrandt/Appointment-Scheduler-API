@@ -48,6 +48,17 @@ namespace AppointmentManagerApi.Services
             return professional;
         }
 
+        public ProfessionalModel GetProfessionalByCode(string code)
+        {
+            var prof = professionalDao.GetProfessionalByCode(code);
+            var professional = new ProfessionalModel(professionalDao.GetProfessionalByCode(code))
+            {
+                OpenTimeSlots = professionalDao.GetTimeSlots(prof.FirebaseUid)
+            };
+
+            return professional;
+        }
+
         public void DeleteProfessionalAccount(string uid)
         {
             professionalDao.RemoveProfessional(uid);

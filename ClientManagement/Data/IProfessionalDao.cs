@@ -9,6 +9,7 @@ namespace AppointmentManagerApi.Data
     {
         public void AddProfessional(ProfessionalRegistrationRequest professionalRegistrationRequest);
         public GetProfessionalResponse GetProfessional(string uid);
+        public GetProfessionalResponse GetProfessionalByCode(string code);
         public IList<GetProfessionalTimeSlotsResponse> GetTimeSlots(string uid);
         public IList<GetProfessionalAppointmentsResponse> GetAppointments(string uid);
         public void RemoveProfessional(string uid);

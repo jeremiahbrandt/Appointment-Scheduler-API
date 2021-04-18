@@ -31,6 +31,18 @@ namespace AppointmentManagerApi.Data
                 return result;
             }
         }
+
+        public GetProfessionalResponse GetProfessionalByCode(string code)
+        {
+            using (var connection = new SqlConnection(Util.GetConnectionString()))
+            {
+                var procedure = "GetProfessionalByShareableCode";
+                var values = new { ShareableCode = code };
+                var result = connection.Query<GetProfessionalResponse>(procedure, values, commandType: CommandType.StoredProcedure).First();
+
+                return result;
+            }
+        }
         public void UpdateProfessional(ProfessionalRegistrationRequest request)
         {
             using (var connection = new SqlConnection(Util.GetConnectionString()))
