@@ -12,6 +12,6 @@ namespace AppointmentManagerApi.Data
         public IList<GetProfessionalTimeSlotsResponse> GetTimeSlots(string uid);
         public IList<GetProfessionalAppointmentsResponse> GetAppointments(string uid);
         public void RemoveProfessional(string uid);
-        public GetProfessionalResponse UpdateProfessional();
+        public void UpdateProfessional(ProfessionalRegistrationRequest request);
     }
 }

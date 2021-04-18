@@ -66,5 +66,16 @@ namespace AppointmentManagerApi.Services
             var professional = GetProfessional(uid).Result;
             return professional;
         }
+
+        public async Task<ProfessionalModel> UpdateProfessional(HttpRequest request)
+        {
+            var uid = Util.GetUid(request).Result;
+
+            string reqString = await Util.StreamToStringAsync(request);
+            var registration = JsonConvert.DeserializeObject<ProfessionalRegistrationRequest>(reqString);
+            registration.FirebaseUid = await Util.GetUid(request);
+            professionalDao.UpdateProfessional(registration);
+            return await GetProfessional(uid);
+        }
     }
 }

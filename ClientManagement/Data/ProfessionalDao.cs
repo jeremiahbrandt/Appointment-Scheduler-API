@@ -31,9 +31,14 @@ namespace AppointmentManagerApi.Data
                 return result;
             }
         }
-        public GetProfessionalResponse UpdateProfessional()
+        public void UpdateProfessional(ProfessionalRegistrationRequest request)
         {
-            throw new NotImplementedException();
+            using (var connection = new SqlConnection(Util.GetConnectionString()))
+            {
+                var procedure = "UpdateProfessional";
+                var values = request;
+                connection.Query<GetProfessionalResponse>(procedure, values, commandType: CommandType.StoredProcedure);
+            }
         }
 
         public IList<GetProfessionalTimeSlotsResponse> GetTimeSlots(string uid)
