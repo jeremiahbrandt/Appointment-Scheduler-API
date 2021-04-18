@@ -29,6 +29,7 @@ namespace AppointmentManagerApi.Services
 
             string reqString = await Util.StreamToStringAsync(req);
             var registration =  JsonConvert.DeserializeObject<ProfessionalRegistrationRequest>(reqString);
+            registration.FirebaseUid = await Util.GetUid(req);
             professionalDao.AddProfessional(registration);
             return await GetProfessional(uid);
         }
